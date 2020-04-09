@@ -58,6 +58,7 @@ class Kill {
 				}
 				this.killed[tree] = true;
 			}
+			return;
 		} else if (is.object(tree)) {
 			for (let i in tree) {
 				this.kill(parseInt(i, 10), signal);
