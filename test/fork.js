@@ -1,0 +1,1 @@
+setInterval(() => null, 100);

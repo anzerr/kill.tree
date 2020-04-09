@@ -23,9 +23,9 @@ class Kill {
 
 	getProcessList(pid) {
 		if (process.platform === 'darwin') {
-			return spawn('pgrep', ['-P', pid]);
+			return Promise.resolve(spawn('pgrep', ['-P', pid]));
 		}
-		return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', pid]);
+		return Promise.resolve(spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', pid]));
 	}
 
 	getTree(parentPid) {
