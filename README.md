@@ -2,7 +2,7 @@
 ### `Intro`
 ![GitHub Actions status | publish](https://github.com/anzerr/kill.tree/workflows/publish/badge.svg)
 
-// explain
+Kill a tree of process for a given pid
 
 #### `Install`
 ``` bash
