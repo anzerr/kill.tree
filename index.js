@@ -8,7 +8,7 @@ const getData = (process) => {
 		const data = [];
 		process.stdout.on('data', (d) => data.push(d));
 		process.on('close', (code) => {
-			resolve({code: code, data: Buffer.concat(data)});
+			resolve({code: code, data: Buffer.concat(data).toString()});
 		});
 	});
 };
@@ -36,8 +36,8 @@ class Kill {
 
 			for (let i in ids) {
 				const pid = parseInt(ids[i], 10);
-				this.tree[parentPid].push(pid);
-				this.tree[pid] = [];
+				this.tree[parentPid][pid] = true;
+				this.tree[pid] = {};
 				this.pid[pid] = true;
 				wait.push(this.getTree(pid));
 			}
@@ -61,7 +61,9 @@ class Kill {
 		} else if (is.object(tree)) {
 			for (let i in tree) {
 				this.kill(parseInt(i, 10), signal);
-				this.kill(tree[i], signal);
+				if (is.object(tree[i])) {
+					this.kill(tree[i], signal);
+				}
 			}
 			return;
 		}
@@ -75,6 +77,8 @@ class Kill {
 		if (process.platform === 'win32') {
 			return promisify(exec)(`taskkill /pid ${pid} /T /F`);
 		}
+		this.tree[pid] = [];
+		this.pid[pid] = true;
 		return this.getTree(pid).then(() => {
 			return this.kill(this.tree, signal);
 		});

@@ -20,7 +20,14 @@ class Test {
 
 }
 
+const error = setTimeout(() => {
+	process.exit(1);
+}, 30 * 1000);
+
 const t = new Test();
-t.test1().catch((err) => {
+t.test1().then(() => {
+	clearTimeout(error);
+}).catch((err) => {
+	clearTimeout(error);
 	throw err;
 });
