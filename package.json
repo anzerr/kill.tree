@@ -9,12 +9,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"devDependencies": {
-		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
-	},
-	"eslintConfig": {
-		"extends": "eslint-config-basic"
-	},
+	"devDependencies": {},
 	"dependencies": {
 		"type.util": "git+https://github.com/anzerr/type.util.git"
 	}
